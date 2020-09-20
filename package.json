@@ -1,0 +1,30 @@
+{
+  "name": "laboramus-sd-case",
+  "version": "1.0.0",
+  "description": "This is a reporting tool developed for my Laboramus developer interview",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Olili",
+  "license": "ISC",
+  "dependencies": {
+    "mobx": "^5.15.7",
+    "mobx-react": "^6.3.0",
+    "next": "^9.5.3",
+    "next-images": "^1.5.0",
+    "react-csv-reader": "^3.1.1",
+    "react-dom": "^16.13.1",
+    "reactjs": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.2"
+  }
+}
