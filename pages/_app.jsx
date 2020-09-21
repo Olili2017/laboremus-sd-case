@@ -4,6 +4,7 @@ import App from 'next/app'
 import { Provider } from 'mobx-react'
 
 import '../public/styles/index.css'
+import 'react-datasheet/lib/react-datasheet.css';
 
 import store from '../stores'
 

@@ -1,62 +1,11 @@
 import { observable, action } from "mobx";
 
 export default class OrdersStore {
-  @observable orders = [
-    {
-      country: "ug",
-      item_type: "player",
-      order_date: "2020-06-21",
-      order_id: "hello",
-      order_priority: "hello",
-      region: "hello",
-      sales_channel: "hello",
-      ship_date: "hello",
-      total_cost: 2,
-      total_profit: 4,
-      total_revenue: "hello",
-      unit_cost: "hello",
-      unit_price: "hello",
-      units_sold: "hello",
-    },
-    {
-      country: "ug",
-      item_type: "two",
-      order_date: "2020-09-10",
-      order_id: "hello",
-      order_priority: "hello",
-      region: "hello",
-      sales_channel: "hello",
-      ship_date: "hello",
-      total_cost: 2,
-      total_profit: 5,
-      total_revenue: "hello",
-      unit_cost: "hello",
-      unit_price: "hello",
-      units_sold: "hello",
-    },
-    {
-      country: "ug",
-      item_type: "two",
-      order_date: "2020-03-04",
-      order_id: "hello",
-      order_priority: "hello",
-      region: "hello",
-      sales_channel: "hello",
-      ship_date: "hello",
-      total_cost: 3,
-      total_profit: 3,
-      total_revenue: "hello",
-      unit_cost: "hello",
-      unit_price: "hello",
-      units_sold: "hello",
-    }
-  ];
+  @observable orders = [];
 
-  @observable filteredOrders = [
+  @observable filteredOrders = []
 
-  ]
-
-  @observable report = true;
+  @observable report = false;
 
   get shouldReport() {
     return this.report;
@@ -145,5 +94,15 @@ export default class OrdersStore {
 
   @action clearFiltered(){
     this.setFilteredorders([])
+  }
+
+  @action generateTableData(){
+    let tempTableData = []
+    this.getOrders.map(order => {
+      const row = [{value: order.order_date}, {value: order.item_type}, {value: order.order_priority}, {value: order.units_sold}, {value: order.unit_price}, {value: order.total_cost}, {value: order.total_revenue}]
+      tempTableData.push(row)
+    })
+
+    return tempTableData
   }
 }
