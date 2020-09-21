@@ -1,7 +1,18 @@
 import { observable, action } from "mobx";
 
+// {
+//   order_date: '2020-01-07',
+//   item_type: 'chili',
+//   order_priority: 1,
+//   units_sold: 3,
+//   unit_price: 3000,
+//   total_cost: 1000,
+//   total_revenue: 5000,
+//   total_profit: 4000,
+// }
+
 export default class OrdersStore {
-  @observable orders = [];
+  @observable orders = []
 
   @observable filteredOrders = []
 
@@ -100,7 +111,17 @@ export default class OrdersStore {
     let tempTableData = []
     this.getOrders.map(order => {
       const row = [{value: order.order_date}, {value: order.item_type}, {value: order.order_priority}, {value: order.units_sold}, {value: order.unit_price}, {value: order.total_cost}, {value: order.total_revenue}]
-      tempTableData.push(row)
+      tempTableData.push(
+        {
+          date: order.order_date,
+          type: order.item_type,
+          priority: order.order_priority,
+          units: order.units_sold,
+          price: order.unit_price,
+          cost: order.total_cost,
+          revenue: order.total_revenue,
+        }
+      )
     })
 
     return tempTableData

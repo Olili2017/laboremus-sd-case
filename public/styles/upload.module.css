@@ -9,13 +9,18 @@
   border: .25rem dashed grey;
   padding: 2rem;
   text-align: center;
-  justify-content: space-between;
+  justify-content: space-around;
   min-width: 30rem;
   max-width: 30rem;
 }
 
 .form>div {
-  margin: 1rem 0;
+  margin: .5rem 0;
+}
+
+.form>h3 {
+  font-size: 2.5rem;
+  color: grey;
 }
 
 .form input {
