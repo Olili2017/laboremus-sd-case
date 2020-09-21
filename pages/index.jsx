@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-
+import Upload from '../components/reader'
 
 @inject("ordersStore")
 @observer
@@ -13,11 +13,16 @@ export default class Dashboard extends Component {
 
   render(){
 
-    console.table(this.store.getOrders)
+    const { shouldReport } =  this.store
 
     return (
       <>
-        <div>Dashboard</div>
+        {
+          shouldReport ?
+          (<Dashboard />) :
+          (<Upload />)
+        }
+
       </>
     )
   }

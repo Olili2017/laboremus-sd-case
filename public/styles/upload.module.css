@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 30% auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  border: .25rem dashed grey;
+  padding: 2rem;
+  text-align: center;
+  justify-content: space-between;
+  min-width: 30rem;
+  max-width: 30rem;
+}
+
+.form>div {
+  margin: 1rem 0;
+}
+
+.form input {
+  display: none;
+}
+
+.form label {
+  color: #45c6fa;
+  padding: .75rem;
+  border-radius: .25rem;
+  border: .2rem solid #45c6fa;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
