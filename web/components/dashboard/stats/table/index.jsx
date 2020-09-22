@@ -8,13 +8,15 @@ export default function OrdersTable(props) {
     <>
       <table border="1" className={styles.table}>
         <thead className={styles.head}>
-          <th>Date</th>
-          <th>Item type</th>
-          <th>Priority</th>
-          <th>Units sold</th>
-          <th>Units price</th>
-          <th>Total cost</th>
-          <th>Total revenue</th>
+          <tr>
+            <th>Date</th>
+            <th>Item type</th>
+            <th>Priority</th>
+            <th>Units sold</th>
+            <th>Units price</th>
+            <th>Total cost</th>
+            <th>Total revenue</th>
+          </tr>
         </thead>
         <tbody className={styles.body}>
           {

@@ -212,7 +212,7 @@ export default class OrdersStore {
     this.setFilteredorders([])
   }
 
-  @action get generateTableData(){
+  @action generateTableData(){
     let tempTableData = []
     this.getOrders.map(order => {
       const row = [{value: order.order_date}, {value: order.item_type}, {value: order.order_priority}, {value: order.units_sold}, {value: order.unit_price}, {value: order.total_cost}, {value: order.total_revenue}]

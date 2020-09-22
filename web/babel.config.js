@@ -7,10 +7,6 @@ module.exports = function (api) {
     ['@babel/plugin-proposal-class-properties', { loose: true }],
     '@babel/plugin-proposal-optional-chaining',
     '@babel/plugin-transform-runtime',
-    [
-      'styled-components',
-      { ssr: false, displayName: true, preprocess: false },
-    ],
   ]
   const env = {
     production: {
