@@ -8,7 +8,7 @@ import 'react-datasheet/lib/react-datasheet.css';
 
 import store from '../stores'
 
-export default class LaboramusSoftwareDeveloperCaseApp extends App {
+export default class LaboremusSoftwareDeveloperCase extends App {
   constructor(props) {
     super(props)
     this.rootSore = store

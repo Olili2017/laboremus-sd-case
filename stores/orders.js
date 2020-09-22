@@ -12,11 +12,106 @@ import { observable, action } from "mobx";
 // }
 
 export default class OrdersStore {
-  @observable orders = []
+  @observable orders = [
+    {
+      order_date: '2020-01-07',
+      item_type: 'clothes',
+      order_priority: 1,
+      units_sold: 3,
+      unit_price: 3000,
+      total_cost: 1000,
+      total_revenue: 5000,
+      total_profit: 4000,
+    },
+    {
+      order_date: '2020-01-07',
+      item_type: 'laundry',
+      order_priority: 1,
+      units_sold: 3,
+      unit_price: 3000,
+      total_cost: 1000,
+      total_revenue: 5000,
+      total_profit: 4000,
+    },
+    {
+      order_date: '2020-07-07',
+      item_type: 'kids',
+      order_priority: 1,
+      units_sold: 3,
+      unit_price: 3000,
+      total_cost: 1000,
+      total_revenue: 5000,
+      total_profit: 4000,
+    },
+    {
+      order_date: '2020-02-07',
+      item_type: 'boutique',
+      order_priority: 1,
+      units_sold: 3,
+      unit_price: 3000,
+      total_cost: 1000,
+      total_revenue: 5000,
+      total_profit: 4000,
+    },
+    {
+      order_date: '2020-09-07',
+      item_type: 'radio',
+      order_priority: 1,
+      units_sold: 3,
+      unit_price: 3000,
+      total_cost: 1000,
+      total_revenue: 5000,
+      total_profit: 4000,
+    },
+    {
+      order_date: '2020-04-07',
+      item_type: 'chili',
+      order_priority: 1,
+      units_sold: 3,
+      unit_price: 3000,
+      total_cost: 1000,
+      total_revenue: 5000,
+      total_profit: 4000,
+    },
+    {
+      order_date: '2020-01-04',
+      item_type: 'chili',
+      order_priority: 1,
+      units_sold: 3,
+      unit_price: 3000,
+      total_cost: 1000,
+      total_revenue: 5000,
+      total_profit: 4000,
+    },
+    {
+      order_date: '2020-01-06',
+      item_type: 'chili',
+      order_priority: 1,
+      units_sold: 3,
+      unit_price: 3000,
+      total_cost: 1000,
+      total_revenue: 5000,
+      total_profit: 4000,
+    },
+    {
+      order_date: '2019-01-07',
+      item_type: 'chili',
+      order_priority: 1,
+      units_sold: 3,
+      unit_price: 3000,
+      total_cost: 1000,
+      total_revenue: 5000,
+      total_profit: 4000,
+    }
+  ]
 
   @observable filteredOrders = []
 
-  @observable report = false;
+  @observable mostProfitableItemTypes = []
+
+  @observable report = true;
+
+  @observable totalProfit = 0;
 
   get shouldReport() {
     return this.report;
@@ -24,6 +119,14 @@ export default class OrdersStore {
 
   get getOrders() {
     return this.filteredOrders.length > 0 ? this.filteredOrders : this.orders;
+  }
+
+  get getTotalProfit(){
+    return this.totalProfit
+  }
+
+  get getMostProfitableItemType(){
+    return this.mostProfitableItemTypes
   }
 
   setFilteredorders(filtered){
@@ -35,14 +138,14 @@ export default class OrdersStore {
     this.report = true;
   }
 
-  @action getTotalProfitMade(){
-    return this.getOrders.reduce((total, current) => total + current.total_profit, 0)
+  @action generateTotalProfitMade(){
+    this.totalProfit = this.getOrders.reduce((total, current) => total + current.total_profit, 0)
   }
 
   /**
    * Gets the top 5 most profitable items
    */
-  @action getMostProfitableItemTypes() {
+  @action generateMostProfitableItemTypes() {
     // temporary storage for checked item types
     let tempDataByItemType = [];
 
@@ -83,7 +186,9 @@ export default class OrdersStore {
       return 0
     })
 
-    return tempDataByItemType.slice(0, 5)
+    this.mostProfitableItemTypes = tempDataByItemType.slice(0,5)
+
+    // return this.mostProfitableItemTypes
   }
 
   @action filter(from, to){
@@ -107,7 +212,7 @@ export default class OrdersStore {
     this.setFilteredorders([])
   }
 
-  @action generateTableData(){
+  @action get generateTableData(){
     let tempTableData = []
     this.getOrders.map(order => {
       const row = [{value: order.order_date}, {value: order.item_type}, {value: order.order_priority}, {value: order.units_sold}, {value: order.unit_price}, {value: order.total_cost}, {value: order.total_revenue}]
