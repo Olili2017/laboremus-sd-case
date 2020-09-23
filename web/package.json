@@ -4,8 +4,9 @@
   "description": "This is a reporting tool developed for my Laboramus developer interview",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next",
     "build": "next build",
+    "start": "next start",
     "jest": "jest"
   },
   "author": "Daniel Olili",
@@ -29,6 +30,7 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "babel-jest": "^26.3.0",
+    "babel-plugin-react-remove-properties": "^0.3.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.4",
     "eslint": "^7.9.0",

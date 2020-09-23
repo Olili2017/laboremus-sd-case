@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  web:
+    build: './web'
+    container_name: 'laboremus_dc'
+    image: 'olilidaniel48/laboremus'
+    volumes:
+      - ./web:/app
+    ports:
+      - 80:3000
