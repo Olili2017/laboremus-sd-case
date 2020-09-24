@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  web:
+    build: './web'
+    depends_on:
+      - server
+    container_name: 'laboremus_dc'
+    image: 'olilidaniel48/laboremus/frontend'
+    volumes:
+      - ./web:/app
+    ports:
+      - 80:3000
+    networks:
+      - laboremus
+  server:
+    build: './server'
+    container_name: 'backend'
+    image: 'olilidaniel48/laboremus/backend'
+    volumes:
+      - ./server:/server
+    ports:
+      - 8000:8000
+    restart: always
+    networks:
+      - laboremus
+networks:
+  laboremus:
+    driver: bridge
