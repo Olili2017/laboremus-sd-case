@@ -1,9 +1,20 @@
 from flask import Flask
+from flask_cors import CORS, cross_origin
 from flask_restful import Api, Resource, reqparse
 from pkg.CSVOdersHandler import OrdersHandler
 
 app = Flask(__name__)
+# CORS(app)
+
+# CORS(app, resources={
+#     r"/*": {
+#         "origins": "*"
+#     }
+# })
+app.config['CORS_HEADERS'] = 'Content-Type'
 api = Api(app)
+CORS(app, origins="*", resources='/*')
+
 
 
 class RootApi(Resource):
@@ -23,7 +34,6 @@ class RootApi(Resource):
         final_result = {'status': 'SUCCESS', 'message': message}
         return final_result
 
-
 api.add_resource(OrdersHandler, '/v1/orders/handler')
 api.add_resource(RootApi, '/v1/hello')
-app.run(host='0.0.0.0', port=3000, debug=True)
+app.run(host='0.0.0.0', port=8000, debug=True)

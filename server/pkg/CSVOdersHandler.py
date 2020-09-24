@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, make_response, jsonify
 from flask_restful import Api, Resource, reqparse
 import pandas as pd
 
@@ -10,26 +10,38 @@ class OrdersHandler(Resource):
 
   def post(self):
     orders = request.get_json(force=True)
+    from_date = request.args.get('from')
+    to_date = request.args.get('to')
+
     data = pd.DataFrame(orders)
-    total_profit = data['Total Profit'].sum()
-    item_types = data['Item Type'].unique()
+
+    if from_date is not None:
+      data = data.loc[
+                (pd.to_datetime(data['order_date']) >= pd.to_datetime(from_date)) &
+                (pd.to_datetime(data['order_date']) <= pd.to_datetime(to_date))
+              ]
+
+    total_profit = data['total_profit'].sum()
+    item_types = data['item_type'].unique()
     profitability_data = []
 
     for item in item_types:
-      profit = data.loc[data['Item Type'] == item]['Total Profit'].sum()
-      revenue = data.loc[data['Item Type'] == item]['Total Revenue'].sum()
-      profitability = (profit / revenue)
-      type_dict = { 'name': item, 'profitability': profitability }
+      cost = int(data.loc[data['item_type'] == item]['total_cost'].sum())
+      revenue = int(data.loc[data['item_type'] == item]['total_revenue'].sum())
+      if cost != 0:
+        profitability = ((revenue - cost) / cost)
+      else:
+        profitability = cost
+      type_dict = { 'type': item, 'profitability': profitability }
       profitability_data.append(type_dict)
 
     most_profitable_items = sorted(profitability_data, key=lambda item: item['profitability'], reverse=True)[:5]
-    total_profit = 782678
-    most_profitable_items = []
+
 
     return {
       'status': 'success',
       'data': {
-        'total_profit': total_profit,
+        'total_profit': int(total_profit),
         'most_profitable_items': most_profitable_items
         }
       }

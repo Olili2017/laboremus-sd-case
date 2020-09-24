@@ -35,16 +35,16 @@ export default function Chooser(props) {
         clearFilter()
         break;
       case 1:
-        date.setMonth(date.getMonth() - 1)
-        filterOrders(date, new Date())
+        filterOrders(
+          `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+          '',
+        )
         break;
       case 2:
-        date.setMonth(date.getMonth() - 3)
-        filterOrders(date, new Date())
+        filterOrders(`${date.getFullYear()}-${date.getMonth() - 2}-${date.getDate()}`, '')
         break;
       case 3:
-        date.setMonth(date.getMonth() - 12)
-        filterOrders(date, new Date())
+        filterOrders(`${date.getFullYear() - 1}-${date.getMonth() + 1}-${date.getDate()}`, '')
         break;
       case 4:
         setShowCustomFilter(true)

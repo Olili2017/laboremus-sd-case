@@ -8,7 +8,7 @@ export default function Summary(props) {
       <div className={styles.cotainer}>
         <div>
           <h3>Total profit</h3>
-          <p>{props.totalProfit}</p>
+          <p>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(props.totalProfit)}</p>
         </div>
         <div>
           <h3>Top 5 profitable types</h3>

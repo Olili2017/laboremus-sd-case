@@ -1,4 +1,5 @@
 import { observable, action } from "mobx";
+import axios from 'axios'
 
 // {
 //   order_date: '2020-01-07',
@@ -12,104 +13,13 @@ import { observable, action } from "mobx";
 // }
 
 export default class OrdersStore {
-  @observable orders = [
-    {
-      order_date: '2020-01-07',
-      item_type: 'clothes',
-      order_priority: 1,
-      units_sold: 3,
-      unit_price: 3000,
-      total_cost: 1000,
-      total_revenue: 5000,
-      total_profit: 4000,
-    },
-    {
-      order_date: '2020-01-07',
-      item_type: 'laundry',
-      order_priority: 1,
-      units_sold: 3,
-      unit_price: 3000,
-      total_cost: 1000,
-      total_revenue: 5000,
-      total_profit: 4000,
-    },
-    {
-      order_date: '2020-07-07',
-      item_type: 'kids',
-      order_priority: 1,
-      units_sold: 3,
-      unit_price: 3000,
-      total_cost: 1000,
-      total_revenue: 5000,
-      total_profit: 4000,
-    },
-    {
-      order_date: '2020-02-07',
-      item_type: 'boutique',
-      order_priority: 1,
-      units_sold: 3,
-      unit_price: 3000,
-      total_cost: 1000,
-      total_revenue: 5000,
-      total_profit: 4000,
-    },
-    {
-      order_date: '2020-09-07',
-      item_type: 'radio',
-      order_priority: 1,
-      units_sold: 3,
-      unit_price: 3000,
-      total_cost: 1000,
-      total_revenue: 5000,
-      total_profit: 4000,
-    },
-    {
-      order_date: '2020-04-07',
-      item_type: 'chili',
-      order_priority: 1,
-      units_sold: 3,
-      unit_price: 3000,
-      total_cost: 1000,
-      total_revenue: 5000,
-      total_profit: 4000,
-    },
-    {
-      order_date: '2020-01-04',
-      item_type: 'chili',
-      order_priority: 1,
-      units_sold: 3,
-      unit_price: 3000,
-      total_cost: 1000,
-      total_revenue: 5000,
-      total_profit: 4000,
-    },
-    {
-      order_date: '2020-01-06',
-      item_type: 'chili',
-      order_priority: 1,
-      units_sold: 3,
-      unit_price: 3000,
-      total_cost: 1000,
-      total_revenue: 5000,
-      total_profit: 4000,
-    },
-    {
-      order_date: '2019-01-07',
-      item_type: 'chili',
-      order_priority: 1,
-      units_sold: 3,
-      unit_price: 3000,
-      total_cost: 1000,
-      total_revenue: 5000,
-      total_profit: 4000,
-    }
-  ]
+  @observable orders = []
 
   @observable filteredOrders = []
 
   @observable mostProfitableItemTypes = []
 
-  @observable report = true;
+  @observable report = false;
 
   @observable totalProfit = 0;
 
@@ -131,6 +41,28 @@ export default class OrdersStore {
 
   setFilteredorders(filtered){
     this.filteredOrders = filtered
+  }
+
+  @action requestMetric(from, to){
+    let url = "http://localhost:8000/v1/orders/handler"
+
+    if (from){
+      url = url + '?from=' + from
+    }
+
+    if (to){
+      url = url + '&to=' + to
+    }
+
+    axios.post(
+      url,
+      this.getOrders
+      ).then(response => {
+        this.totalProfit = response.data.data.total_profit
+        this.mostProfitableItemTypes = response.data.data.most_profitable_items
+      }).catch(err => {
+
+      })
   }
 
   @action addOrders(orders) {
@@ -209,7 +141,8 @@ export default class OrdersStore {
   }
 
   @action clearFiltered(){
-    this.setFilteredorders([])
+    // this.setFilteredorders([])
+    this.requestMetric()
   }
 
   @action generateTableData(){

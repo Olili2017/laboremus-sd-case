@@ -15,12 +15,14 @@ export default class Filters extends PureComponent {
   }
 
   filterOrders(from, to){
-    this.store.filter(new Date(from), new Date(to))
+    // this.store.filter(new Date(from), new Date(to))
+    this.store.requestMetric(from, to)
   }
 
   componentDidMount(){
-    this.store.generateMostProfitableItemTypes()
-    this.store.generateTotalProfitMade()
+    // this.store.generateMostProfitableItemTypes()
+    // this.store.generateTotalProfitMade()
+    this.store.requestMetric()
   }
 
   render(){
